@@ -4,6 +4,8 @@ class BooksController < ApplicationController
     if params[:title].present? || params[:isbn].present?
       rakuten_result = Book.set_api(title: params[:title], isbn: params[:isbn])
     end
+    return unless rakuten_result
+
     if rakuten_result.first == :OK
       @books = rakuten_result.last
     elsif rakuten_result.first == :NG

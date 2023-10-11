@@ -24,5 +24,21 @@
       <li><%= link_to "商品リンク", book.item_url %></li>
     </ul>
   </div>
+  <div>
+    <% if book.new_record? %>
+    <%# if true %>
+      <%= form_with(model: book, url: books_path, method: :post, local: true, id: "book_#{book.isbn}") do |f| %>
+        <%= f.hidden_field :isbn %>
+        <%= f.hidden_field :title %>
+        <%= f.hidden_field :author %>
+        <%= f.hidden_field :item_price %>
+        <%= f.hidden_field :item_url %>
+        <%= f.hidden_field :image_url %>
+        <%= f.submit "DBに登録" %>
+      <% end %>
+    <% else %>
+      <%= button_to "詳細ページへ", book, method: :get %>
+    <% end %>
+  </div>
   <hr>
 <% end %>
